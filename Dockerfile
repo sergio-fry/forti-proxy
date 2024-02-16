@@ -5,12 +5,8 @@ RUN apt-get update && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
-COPY ./supervisor-log-prefix.sh /
-RUN chmod +x /supervisor-log-prefix.sh
-
-COPY ./supervisord.conf /etc/
-COPY ./tinyproxy.conf /etc/tinyproxy/
-COPY ./tinyproxy.sh /usr/bin/tinyproxy.sh
+COPY ./etc/* /etc/
+COPY ./bin/* /usr/bin/
 
 RUN chmod +x /usr/bin/*
 

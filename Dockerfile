@@ -8,7 +8,9 @@ RUN apt-get update && \
 COPY ./etc/* /etc/
 COPY ./bin/* /usr/bin/
 
-RUN chmod +x /usr/bin/*
+RUN chmod +x /usr/bin/forti.sh
+RUN chmod +x /usr/bin/tinyproxy.sh
+RUN chmod +x /usr/bin/supervisor-log-prefix.sh
 
 ENV TINYPROXY_USER=user
 ENV TINYPROXY_PASSWORD=secret123

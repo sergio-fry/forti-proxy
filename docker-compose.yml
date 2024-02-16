@@ -15,3 +15,4 @@ services:
 
     environment:
       - TINYPROXY_PASSWORD=Passw0rd
+      - FORTI_HOST=vpn.forti.com

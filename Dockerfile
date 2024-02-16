@@ -1,16 +1,22 @@
 FROM ubuntu:22.04
 
-RUN apt-get update
-RUN apt-get install -y openfortivpn ppp supervisor
-RUN apt-get install -y squid
-RUN apt-get install -y dante-server
+RUN apt-get update && \
+  apt-get install -y openfortivpn ppp supervisor tinyproxy && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
 
 COPY ./supervisor-log-prefix.sh /
 RUN chmod +x /supervisor-log-prefix.sh
 
 COPY ./supervisord.conf /etc/
-COPY ./squid.conf /etc/squid/
-COPY ./danted.conf /etc/danted.conf
+COPY ./tinyproxy.conf /etc/tinyproxy/
+COPY ./tinyproxy.sh /usr/bin/tinyproxy.sh
+RUN chmod +x /usr/bin/tinyproxy.sh
 
-EXPOSE 8118
+ENV TINYPROXY_CONF='/etc/tinyproxy/tinyproxy.conf'
+ENV TINYPROXY_USER=user
+ENV TINYPROXY_PASSWORD=secret123
+
+
+EXPOSE 8888
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

@@ -13,5 +13,7 @@ services:
       - NET_ADMIN
 
     ports:
-      - 8118:3128
-      - 1080:1080
+      - 8118:8888
+
+    environment:
+      - TINYPROXY_PASSWORD=Passw0rd

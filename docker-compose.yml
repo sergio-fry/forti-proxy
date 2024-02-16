@@ -1,0 +1,14 @@
+version: '2.4'
+
+services:
+  openfortivpn:
+    build: .
+    tty: true
+    volumes:
+      - ./data:/data:ro
+    devices:
+      - /dev/net/tun:/dev/net/tun
+      - /dev/ppp:/dev/ppp
+    cap_add:
+      - NET_ADMIN
+

@@ -1,7 +1,7 @@
 all: build run
 
 build:
-	docker build -t forti-proxy .
-	
+        docker compose build
+
 run:
-	docker run -it -v "./data:/data" forti-proxy
+        docker compose up

@@ -1,9 +1,12 @@
-FROM ubuntu
+FROM ubuntu:22.04
 
-RUN apt-get update; apt-get install -y openfortivpn
+RUN apt-get update
+RUN apt-get install -y openfortivpn ppp supervisor
 
-ADD entrypoint.sh /usr/bin/entrypoint.sh
-RUN chmod +x /usr/bin/entrypoint.sh
+COPY ./supervisor-log-prefix.sh /
+RUN chmod +x /supervisor-log-prefix.sh
 
-# ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+COPY ./supervisord.conf /etc/
 
+EXPOSE 8118
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
